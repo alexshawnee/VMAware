@@ -1,0 +1,4 @@
+module VMAware [system] {
+    header "vmaware.h"
+    export *
+}

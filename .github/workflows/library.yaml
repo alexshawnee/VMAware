@@ -1,0 +1,16 @@
+on:
+    push:
+        tags: v*
+
+jobs:
+    make-mac-library:
+        name: "Macos Library"
+        runs-on: macos-latest
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        steps:
+            - uses: actions/checkout@v4
+            - run: sh build.sh
+            - run: cd build && zip -r VMAware.xcframework.zip VMAware.xcframework
+            - run: gh release create "$GITHUB_REF_NAME" build/VMAware.xcframework.zip
